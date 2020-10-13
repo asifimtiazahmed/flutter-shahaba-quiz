@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sahaba_new/quizBrain.dart';
 import 'themeColors.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 void main() {
   runApp(QuizApp());
@@ -14,6 +15,7 @@ class QuizApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'How well do you know the Sahaba?',
       home: Scaffold(
         backgroundColor: themeColors.spaceCadetNavy[700],
@@ -100,19 +102,28 @@ class _SahabaQuizState extends State<SahabaQuiz> {
     return 'Question: ' + quizBrain.getTotalQuestionsAsked().toString();
   }
 
-  FlatButton createChoiceButton(int btnNo) {
-    return FlatButton(
-      onPressed: () {
-        setState(() {
-          ansChecker(btnNo);
-        });
-      },
-      color: themeColors.burlyWood[900],
-      child: Text(
-        quizBrain.getChoice(btnNo),
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
+  Neumorphic createChoiceButton(int btnNo) {
+    return Neumorphic(
+      style: NeumorphicStyle(
+          shape: NeumorphicShape.concave,
+          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(15)),
+          depth: 3,
+          lightSource: LightSource.bottomRight,
+          surfaceIntensity: 0.6,
+      ),
+      child: FlatButton(
+        onPressed: () {
+          setState(() {
+            ansChecker(btnNo);
+          });
+        },
+        color: themeColors.burlyWood[900],
+        child: Text(
+          quizBrain.getChoice(btnNo),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
         ),
       ),
     );
